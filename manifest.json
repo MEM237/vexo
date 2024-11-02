@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "VEXO",
+  "version": "1.0",
+  "description": "1-to-1 video and texting Chrome extension",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "identity"
+  ],
+  "host_permissions": [
+    "<all_urls>",
+    "https://*.firebaseio.com/*",
+    "https://*.googleapis.com/*"
+  ],
+  "action": {
+    "default_popup": "src/popup.html"
+  },
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "icons": {
+    "16": "src/icon16.png",
+    "48": "src/icon48.png",
+    "128": "src/icon128.png"
+  },
+  "oauth2": {
+    "client_id": "54849424101-eld8ec34itajns12d6hgkae2bu3p0q17.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/userinfo.profile"
+    ]
+  }
+}
