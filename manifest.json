@@ -1,35 +1,36 @@
 {
-  "manifest_version": 3,
-  "name": "VEXO",
-  "version": "1.0",
-  "description": "1-to-1 video and texting Chrome extension",
-  "permissions": [
-    "activeTab",
-    "storage",
-    "identity"
-  ],
-  "host_permissions": [
-    "<all_urls>",
-    "https://*.firebaseio.com/*",
-    "https://*.googleapis.com/*"
-  ],
-  "action": {
-    "default_popup": "src/popup.html"
-  },
-  "background": {
-    "service_worker": "src/background.js",
-    "type": "module"
-  },
-  "icons": {
-    "16": "src/icon16.png",
-    "48": "src/icon48.png",
-    "128": "src/icon128.png"
-  },
-  "oauth2": {
-    "client_id": "54849424101-eld8ec34itajns12d6hgkae2bu3p0q17.apps.googleusercontent.com",
-    "scopes": [
-      "https://www.googleapis.com/auth/userinfo.email",
-      "https://www.googleapis.com/auth/userinfo.profile"
-    ]
-  }
+    "manifest_version": 3,
+    "name": "VEXO",
+    "version": "1.0",
+    "description": "VEXO 1-to-1 Video Text Extension",
+    "permissions": [
+        "storage",
+        "notifications",
+        "activeTab",
+        "scripting",
+        "tabs"
+    ],
+    "background": {
+        "service_worker": "src/js/background.js"
+    },
+    "action": {
+        "default_popup": "src/html/popup.html",
+        "default_icon": {
+            "16": "icon16.png",
+            "48": "icon48.png",
+            "128": "icon128.png"
+        }
+    },
+    "icons": {
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
+    },
+    "host_permissions": [
+        "*://*.firebaseio.com/*"
+    ],
+    "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'self';"
+    }
 }
+

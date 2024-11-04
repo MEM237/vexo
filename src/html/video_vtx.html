@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VEXO Video Text</title>
+    <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+    <div class="video-container">
+        <h2>Video Text Communication</h2>
+        <video id="vtxLocalVideo" autoplay muted playsinline></video>
+        <video id="vtxRemoteVideo" autoplay playsinline></video>
+        <div id="vtx-chat-box" class="chat-box"></div>
+        <input type="text" id="vtx-message" placeholder="Type your message here">
+        <button id="vtx-send-button">Send</button>
+    </div>
+
+    <script type="module" src="src/video_vtx.js"></script>
+</body>
+</html>
