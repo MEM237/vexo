@@ -1,54 +1,75 @@
-import { initializeApp } from "firebase/app";
-import { getAuth, signInAnonymously, onAuthStateChanged } from "firebase/auth";
-import { getDatabase, ref, set, onDisconnect } from "firebase/database";
+document.addEventListener("DOMContentLoaded", function () {
+  const localVideo = document.getElementById("localVideo");
+  const placeholderImages = [
+    "../placeholder1.jpg",
+    "../placeholder2.jpg",
+    "../placeholder3.jpg",
+    "../placeholder4.jpg",
+    "../placeholder5.jpg",
+  ];
 
-// Firebase configuration
-const firebaseConfig = {
-  apiKey: "your-api-key",
-  authDomain: "your-project.firebaseapp.com",
-  projectId: "your-project-id",
-  storageBucket: "your-project.appspot.com",
-  messagingSenderId: "your-messaging-sender-id",
-  appId: "your-app-id",
-};
+  let localStream = null;
 
-// Initialize Firebase App
-const app = initializeApp(firebaseConfig);
-
-// Initialize Firebase Services
-const auth = getAuth(app);
-const database = getDatabase(app);
-
-// Monitor authentication state
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    console.log("User is signed in:", user.uid);
-    handleUserPresence(user.uid);
-  } else {
-    signInAnonymously(auth)
-      .then(() => {
-        console.log("Signed in anonymously");
-      })
-      .catch((error) => {
-        console.error("Authentication error:", error);
+  // Function to get user media
+  async function startVideo() {
+    try {
+      console.log("Attempting to access user media...");
+      localStream = await navigator.mediaDevices.getUserMedia({
+        video: true,
       });
+      console.log("User media stream:", localStream);
+      localVideo.srcObject = localStream;
+      hidePlaceholder();
+    } catch (error) {
+      console.error("Error accessing media devices.", error);
+      displayPlaceholder();
+    }
+  }
+
+  // Display a random placeholder image if video access fails
+  function displayPlaceholder() {
+    const randomIndex = Math.floor(Math.random() * placeholderImages.length);
+    const placeholder = document.getElementById("placeholder");
+    placeholder.style.backgroundImage = `url('${placeholderImages[randomIndex]}')`;
+    placeholder.style.display = "block";
+    localVideo.style.display = "none";
+  }
+
+  // Hide placeholder when video starts
+  function hidePlaceholder() {
+    const placeholder = document.getElementById("placeholder");
+    placeholder.style.display = "none";
+    localVideo.style.display = "block";
+  }
+
+  // Initialize video
+  startVideo();
+
+  // Chat functionality
+  const chatInput = document.getElementById("chatInput");
+  const chatWindow = document.getElementById("chatWindow");
+  const sendButton = document.getElementById("sendButton");
+
+  sendButton.addEventListener("click", sendMessage);
+  chatInput.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      sendMessage();
+    }
+  });
+
+  function sendMessage() {
+    const message = chatInput.value.trim();
+    if (message !== "") {
+      displayMessage("You", message);
+      chatInput.value = "";
+    }
+  }
+
+  function displayMessage(sender, message) {
+    const messageElement = document.createElement("div");
+    messageElement.classList.add("message");
+    messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+    chatWindow.appendChild(messageElement);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
   }
 });
-
-// Function to handle user presence
-function handleUserPresence(userId) {
-  // Reference to the user's presence in the database
-  const userStatusRef = ref(database, "/status/" + userId);
-
-  // Set user status to "online" when connected
-  set(userStatusRef, {
-    state: "online",
-    last_changed: Date.now(),
-  });
-
-  // Set user status to "offline" when disconnected
-  onDisconnect(userStatusRef).set({
-    state: "offline",
-    last_changed: Date.now(),
-  });
-}

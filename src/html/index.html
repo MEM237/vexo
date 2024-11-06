@@ -3,11 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VEXO Extension</title>
-    <link rel="stylesheet" href="src/style.css">
+    <title>VEXO 1.0</title>
+    <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-    <h1>Welcome to VEXO</h1>
-    <p>Click the extension icon in the browser toolbar to start.</p>
+    <div id="app" class="dark-theme">
+        <!-- VTTX Interface (800x400) -->
+        <div class="vttx-container">
+            <!-- Video Window (Tab Zero or Live Feed) -->
+            <div class="video-container">
+                <img id="video-window" src="../images/placeholder0.jpg" alt="Placeholder Video" />
+            </div>
+            
+            <!-- Text Container with Menu, TXW (Text Window), and Presence Indicator -->
+            <div class="text-container">
+                <!-- Presence Indicator -->
+                <div id="presence-indicator" class="presence offline">Offline</div>
+
+                <!-- Menu Icon -->
+                <div class="menu-icon" onclick="toggleMenu()">☰</div>
+
+                <!-- Menu (Hidden by default) -->
+                <div class="menu" id="menu">
+                    <a href="#">About</a>
+                    <a href="#">Contact/Connect</a>
+                    <a href="#">Camera Test & Permissions</a>
+                </div>
+
+                <!-- TXW (Text Chat Window) -->
+                <div id="chat-window" class="chat-window">
+                    <div class="chat-content">
+                        <!-- Chat messages will go here -->
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" placeholder="Type your message..." />
+                        <button id="send-button">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../dist/bundle.js"></script>
 </body>
 </html>
