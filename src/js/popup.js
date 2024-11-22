@@ -1,75 +1,72 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const localVideo = document.getElementById("localVideo");
-  const placeholderImages = [
-    "../placeholder1.jpg",
-    "../placeholder2.jpg",
-    "../placeholder3.jpg",
-    "../placeholder4.jpg",
-    "../placeholder5.jpg",
-  ];
+document.addEventListener("DOMContentLoaded", () => {
+  const mainVideo = document.getElementById("mainVideo");
+  const secondaryPlaceholder = document.getElementById("secondaryPlaceholder");
+  const warningText = document.getElementById("warning-text");
+  const doneButton = document.getElementById("done-button");
 
-  let localStream = null;
+  initializeCameraState();
 
-  // Function to get user media
-  async function startVideo() {
-    try {
-      console.log("Attempting to access user media...");
-      localStream = await navigator.mediaDevices.getUserMedia({
-        video: true,
-      });
-      console.log("User media stream:", localStream);
-      localVideo.srcObject = localStream;
-      hidePlaceholder();
-    } catch (error) {
-      console.error("Error accessing media devices.", error);
-      displayPlaceholder();
-    }
+  if (secondaryPlaceholder) {
+    secondaryPlaceholder.addEventListener("click", () => {
+      enableCamera();
+    });
   }
 
-  // Display a random placeholder image if video access fails
-  function displayPlaceholder() {
-    const randomIndex = Math.floor(Math.random() * placeholderImages.length);
-    const placeholder = document.getElementById("placeholder");
-    placeholder.style.backgroundImage = `url('${placeholderImages[randomIndex]}')`;
-    placeholder.style.display = "block";
-    localVideo.style.display = "none";
-  }
-
-  // Hide placeholder when video starts
-  function hidePlaceholder() {
-    const placeholder = document.getElementById("placeholder");
-    placeholder.style.display = "none";
-    localVideo.style.display = "block";
-  }
-
-  // Initialize video
-  startVideo();
-
-  // Chat functionality
-  const chatInput = document.getElementById("chatInput");
-  const chatWindow = document.getElementById("chatWindow");
-  const sendButton = document.getElementById("sendButton");
-
-  sendButton.addEventListener("click", sendMessage);
-  chatInput.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-      sendMessage();
-    }
-  });
-
-  function sendMessage() {
-    const message = chatInput.value.trim();
-    if (message !== "") {
-      displayMessage("You", message);
-      chatInput.value = "";
-    }
-  }
-
-  function displayMessage(sender, message) {
-    const messageElement = document.createElement("div");
-    messageElement.classList.add("message");
-    messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
-    chatWindow.appendChild(messageElement);
-    chatWindow.scrollTop = chatWindow.scrollHeight;
+  if (doneButton) {
+    doneButton.addEventListener("click", () => {
+      dismissWarning();
+    });
   }
 });
+
+function initializeCameraState() {
+  navigator.permissions.query({ name: "camera" }).then((status) => {
+    if (status.state === "granted") {
+      enableCamera();
+      chrome.storage.local.get(["warningDismissed"], (result) => {
+        if (!result.warningDismissed) showWarning();
+      });
+    } else {
+      toggleVideoVisibility(false);
+    }
+
+    status.onchange = () => {
+      if (status.state === "granted") {
+        enableCamera();
+        showWarning();
+      } else {
+        toggleVideoVisibility(false);
+      }
+    };
+  });
+}
+
+function enableCamera() {
+  navigator.mediaDevices
+    .getUserMedia({ video: true })
+    .then((stream) => {
+      const mainVideo = document.getElementById("mainVideo");
+      toggleVideoVisibility(true);
+      mainVideo.srcObject = stream;
+      mainVideo.play();
+    })
+    .catch(() => toggleVideoVisibility(false));
+}
+
+function toggleVideoVisibility(showVideo) {
+  const mainVideo = document.getElementById("mainVideo");
+  const secondaryPlaceholder = document.getElementById("secondaryPlaceholder");
+  mainVideo.classList.toggle("hidden", !showVideo);
+  secondaryPlaceholder.classList.toggle("hidden", showVideo);
+}
+
+function showWarning() {
+  const warningText = document.getElementById("warning-text");
+  warningText.classList.remove("hidden");
+}
+
+function dismissWarning() {
+  const warningText = document.getElementById("warning-text");
+  warningText.classList.add("hidden");
+  chrome.storage.local.set({ warningDismissed: true });
+}

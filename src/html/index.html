@@ -3,47 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VEXO 1.0</title>
-    <link rel="stylesheet" href="../css/styles.css">
+    <title>VEXO Escalator 1.0</title>
 </head>
 <body>
-    <div id="app" class="dark-theme">
-        <!-- VTTX Interface (800x400) -->
-        <div class="vttx-container">
-            <!-- Video Window (Tab Zero or Live Feed) -->
-            <div class="video-container">
-                <img id="video-window" src="../images/placeholder0.jpg" alt="Placeholder Video" />
-            </div>
-            
-            <!-- Text Container with Menu, TXW (Text Window), and Presence Indicator -->
-            <div class="text-container">
-                <!-- Presence Indicator -->
-                <div id="presence-indicator" class="presence offline">Offline</div>
+    <div id="app" class="dark-theme" style="width: 100vw; height: 100vh; display: grid; grid-template-columns: 100px 1fr 400px; background-color: #1e1e1e;">
+        <!-- Menu Section -->
+        <div class="menu-section" style="background-color: #333; display: flex; flex-direction: column; align-items: center; padding-top: 20px;">
+            <!-- Menu Icon -->
+            <div class="menu-icon" onclick="toggleMenu()" style="cursor: pointer; font-size: 24px; color: white; margin-bottom: 20px;">☰</div>
 
-                <!-- Menu Icon -->
-                <div class="menu-icon" onclick="toggleMenu()">☰</div>
-
-                <!-- Menu (Hidden by default) -->
-                <div class="menu" id="menu">
-                    <a href="#">About</a>
-                    <a href="#">Contact/Connect</a>
-                    <a href="#">Camera Test & Permissions</a>
-                </div>
-
-                <!-- TXW (Text Chat Window) -->
-                <div id="chat-window" class="chat-window">
-                    <div class="chat-content">
-                        <!-- Chat messages will go here -->
-                    </div>
-                    <div class="chat-input">
-                        <input type="text" placeholder="Type your message..." />
-                        <button id="send-button">Send</button>
-                    </div>
-                </div>
+            <!-- Menu (Hidden by default) -->
+            <div class="menu" id="menu" style="display: none; flex-direction: column; text-align: center;">
+                <a href="#" style="padding: 10px; color: white; text-decoration: none;">About</a>
+                <a href="#" style="padding: 10px; color: white; text-decoration: none;">Contact/Connect</a>
+                <a href="#" style="padding: 10px; color: white; text-decoration: none;">Camera Test & Permissions</a>
             </div>
         </div>
-    </div>
 
-    <script src="../../dist/bundle.js"></script>
-</body>
-</html>
+        <!-- Video/Tab Section -->
+        <div class="video-tab-section" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; max-width: 500px;">
+            <!-- Presence Indicator -->
+            <div id="presence-indicator" class="presence offline" style="text-align: center; padding: 5px; font-weight: bold; color: red; margin-bottom: 10px;">Offline</div>
+
+            <!-- Video Window -->
+            <div class="video-window" style="width: 400px; height: 400px; background-color: black;">
+                <img id="video-window" src="../images/placeholder0.jpg" alt="Placeholder Video" style="width: 100%; height: 100%; object-fit: cover;" />
+            </div>
+            
+            <!-- Tabs -->
+            <div class="tabs" style="display: flex; justify-content: space-between; width: 400px;">
+ 

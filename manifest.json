@@ -1,35 +1,29 @@
 {
-    "manifest_version": 3,
-    "name": "VEXO",
-    "version": "1.0",
-    "description": "VEXO 1-to-1 Video Text Extension",
-    "permissions": [
-        "storage",
-        "notifications",
-        "activeTab",
-        "scripting",
-        "tabs"
-    ],
-    "background": {
-        "service_worker": "src/js/background.js"
-    },
-    "action": {
-        "default_popup": "src/html/popup.html",
-        "default_icon": {
-            "16": "icon16.png",
-            "48": "icon48.png",
-            "128": "icon128.png"
-        }
-    },
-    "icons": {
-        "16": "icon16.png",
-        "48": "icon48.png",
-        "128": "icon128.png"
-    },
-    "host_permissions": [
-        "*://*.firebaseio.com/*"
-    ],
-    "content_security_policy": {
-        "extension_pages": "script-src 'self'; object-src 'self';"
+  "manifest_version": 3,
+  "name": "VEXO Escalator",
+  "version": "1.0",
+  "description": "A Chrome extension for video and text communication.",
+  "permissions": ["storage"],
+  "background": {
+    "service_worker": "src/js/background.js"
+  },
+  "action": {
+    "default_icon": "icon48.png"
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "assets/icons/Icon-togel.png",
+        "assets/icons/Icon-cake.png",
+        "assets/icons/Icon-explore.png",
+        "assets/icons/Icon-heart-broken.png"
+      ],
+      "matches": ["<all_urls>"]
     }
+  ]
 }

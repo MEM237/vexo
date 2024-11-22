@@ -3,24 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VEXO - Video Text Extension</title>
-    <link rel="stylesheet" href="../css/popup.css"> <!-- Link to the popup CSS file -->
+    <title>VEXO Escalator</title>
+    <style>
+        /* General Body Styling */
+        body {
+            background-color: #1a1a1a;
+            width: 400px;
+            height: 250px;
+            margin: 0;
+            padding: 0;
+            font-family: "Roboto", sans-serif;
+        }
+
+        /* Main Container Styling */
+        .main-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        /* Main Video Styling */
+        .video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        /* Placeholder Styling */
+        .placeholder {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            width: 150px; /* Increased size for better visibility */
+            height: 100px;
+            background: url('../html/placeholder0.jpg') no-repeat center center;
+            background-size: cover;
+            z-index: 5;
+            border-radius: 6px;
+        }
+
+        /* Menu Container */
+        .menu-container {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 60px;
+            background-color: rgba(26, 32, 45, 0.9);
+            border-radius: 8px;
+            padding: 10px 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            border: 1px solid #ff9500;
+            gap: 15px; /* Added gap for spacing between icons */
+        }
+
+        /* Menu Icon Styling */
+        .menu-icon {
+            width: 40px;
+            height: 40px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .menu-icon:hover {
+            transform: scale(1.2);
+        }
+
+        /* Warning Text Styling */
+        .warning-text {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.9);
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            font-size: 14px;
+            width: 90%;
+            max-width: 300px;
+        }
+
+        .warning-text .button {
+            margin-top: 10px;
+            width: 100%; /* Ensures button spans text width */
+            padding: 5px 15px;
+            background-color: #ff9500;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .warning-text .button:hover {
+            background-color: #e68a00;
+        }
+    </style>
 </head>
 <body>
-    <div id="container">
-        <h1>VEXO</h1>
-        <div id="videoContainer">
-            <video id="localVideo" autoplay muted playsinline></video>
-            <video id="remoteVideo" autoplay playsinline></video>
+    <div class="main-container">
+        <!-- Main Video Feed -->
+        <video id="mainVideo" autoplay muted playsinline class="video" aria-hidden="true"></video>
+
+        <!-- Secondary Placeholder -->
+        <div id="secondaryPlaceholder" class="placeholder" role="button" aria-label="Activate Camera" tabindex="0"></div>
+
+        <!-- Menu Container -->
+        <div class="menu-container">
+            <img src="../../assets/icons/Icon-togel.png" alt="Toggle Camera" class="menu-icon" tabindex="0">
+<img src="../../assets/icons/Icon-cake.png" alt="About VEXO" class="menu-icon" tabindex="0">
+<img src="../../assets/icons/Icon-heart-broken.png" alt="Contacts List" class="menu-icon" tabindex="0">
+<img src="../../assets/icons/Icon-explore.png" alt="Explore Contacts" class="menu-icon" tabindex="0">
+
         </div>
-        <div id="chatContainer">
-            <h2>Chat</h2>
-            <div id="chatWindow"></div>
-            <input type="text" id="chatInput" placeholder="Type a message..." />
-            <button id="sendButton">Send</button>
+
+        <!-- Warning Text -->
+        <div id="warning-text" class="warning-text hidden" role="alert" hidden>
+            <p>Your cam will be active whenever you access VEXO Escalator. To disable, change permissions in your browser settings.</p>
+            <button id="done-button" class="button" aria-label="Dismiss Warning">Done</button>
         </div>
     </div>
-
-    <script src="src/js/popup.js" type="module"></script> <!-- Main JS file -->
+    <link rel="stylesheet" href="../css/popup.css">
+    <script type="module" src="../js/popup.js"></script>
 </body>
-</html><link rel="stylesheet" href="../css/popup.css">
+</html>
+
