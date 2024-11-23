@@ -3,7 +3,7 @@
   "name": "VEXO Escalator",
   "version": "1.0",
   "description": "A Chrome extension for video and text communication.",
-  "permissions": ["storage", "scripting", "activeTab", "notifications"],
+  "permissions": ["activeTab"],
   "host_permissions": ["<all_urls>"],
   "action": {
     "default_icon": {
@@ -19,10 +19,9 @@
     "48": "icon48.png",
     "128": "icon128.png"
   },
-  "web_accessible_resources": [
-    {
-      "resources": ["placeholder0.jpg"],
-      "matches": ["<all_urls>"]
-    }
-  ]
+  "background": {
+    "service_worker": "src/js/background.js"
+  }
 }
+
+

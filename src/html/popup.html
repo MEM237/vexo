@@ -7,25 +7,12 @@
   <link rel="stylesheet" href="../css/popup.css">
 </head>
 <body>
-  <!-- Modal Overlay -->
-  <div class="shepherd-modal-overlay-container"></div>
-
-  <!-- Main Content -->
-  <div class="main-container">
-    <!-- Placeholder -->
-    <div id="placeholder" class="placeholder"></div>
-
-    <!-- Buttons -->
-    <div class="button-container">
-      <button id="about-button" class="button" aria-label="About VEXO">
-        <img src="../../Icon-cake-cover.png" alt="About VEXO">
-      </button>
-      <button id="enable-cam-button" class="button" aria-label="Enable Camera">
-        <img src="../../Icon-camera-alt.png" alt="Enable Camera">
-      </button>
-    </div>
-  </div>
-
-  <script type="module" src="../js/popup.js"></script>
+  <h1>Enable Camera Access</h1>
+  <button id="startCameraButton">Start Camera</button>
+  <video id="myVideo" autoplay playsinline style="width: 640px; height: 480px; display: none;">
+    Your browser does not support video playback.
+  </video>
+  <div id="error-message" style="color: red; display: none; margin-top: 10px;"></div>
+  <script src="../js/popup.js"></script>
 </body>
-</html
+</html>
