@@ -1,72 +1,64 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const mainVideo = document.getElementById("mainVideo");
-  const secondaryPlaceholder = document.getElementById("secondaryPlaceholder");
-  const warningText = document.getElementById("warning-text");
-  const doneButton = document.getElementById("done-button");
+  const aboutButton = document.getElementById("about-button");
+  const enableCamButton = document.getElementById("enable-cam-button");
+  const overlay = document.querySelector(".shepherd-modal-overlay-container");
 
-  initializeCameraState();
+  // Show and hide modal overlay
+  const showModalOverlay = () => {
+    overlay.classList.add("shepherd-modal-is-visible");
+    setTimeout(hideModalOverlay, 2000); // Auto-hide after 2 seconds
+  };
 
-  if (secondaryPlaceholder) {
-    secondaryPlaceholder.addEventListener("click", () => {
-      enableCamera();
-    });
-  }
+  const hideModalOverlay = () => {
+    overlay.classList.remove("shepherd-modal-is-visible");
+  };
 
-  if (doneButton) {
-    doneButton.addEventListener("click", () => {
-      dismissWarning();
-    });
-  }
-});
-
-function initializeCameraState() {
-  navigator.permissions.query({ name: "camera" }).then((status) => {
-    if (status.state === "granted") {
-      enableCamera();
-      chrome.storage.local.get(["warningDismissed"], (result) => {
-        if (!result.warningDismissed) showWarning();
-      });
-    } else {
-      toggleVideoVisibility(false);
-    }
-
-    status.onchange = () => {
-      if (status.state === "granted") {
-        enableCamera();
-        showWarning();
-      } else {
-        toggleVideoVisibility(false);
-      }
-    };
+  // Handle "About" button click
+  aboutButton.addEventListener("click", () => {
+    showModalOverlay();
+    window.open("https://www.intaccc.com", "_blank");
   });
-}
 
-function enableCamera() {
-  navigator.mediaDevices
-    .getUserMedia({ video: true })
-    .then((stream) => {
-      const mainVideo = document.getElementById("mainVideo");
-      toggleVideoVisibility(true);
-      mainVideo.srcObject = stream;
-      mainVideo.play();
-    })
-    .catch(() => toggleVideoVisibility(false));
-}
+  // Handle "Enable Cam" button click
+  enableCamButton.addEventListener("click", () => {
+    showModalOverlay();
+    requestCameraPermission();
+  });
 
-function toggleVideoVisibility(showVideo) {
-  const mainVideo = document.getElementById("mainVideo");
-  const secondaryPlaceholder = document.getElementById("secondaryPlaceholder");
-  mainVideo.classList.toggle("hidden", !showVideo);
-  secondaryPlaceholder.classList.toggle("hidden", showVideo);
-}
+  // Request camera permissions and enable camera
+  const requestCameraPermission = () => {
+    navigator.permissions.query({ name: "camera" }).then((status) => {
+      if (status.state === "granted" || status.state === "prompt") {
+        enableCamera();
+      } else {
+        alert(
+          "Camera access denied. Please enable it in your browser settings."
+        );
+      }
+    });
+  };
 
-function showWarning() {
-  const warningText = document.getElementById("warning-text");
-  warningText.classList.remove("hidden");
-}
-
-function dismissWarning() {
-  const warningText = document.getElementById("warning-text");
-  warningText.classList.add("hidden");
-  chrome.storage.local.set({ warningDismissed: true });
-}
+  const enableCamera = () => {
+    navigator.mediaDevices
+      .getUserMedia({ video: true })
+      .then((stream) => {
+        const videoElement = document.createElement("video");
+        videoElement.srcObject = stream;
+        videoElement.autoplay = true;
+        videoElement.muted = true;
+        Object.assign(videoElement.style, {
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "300px",
+          height: "200px",
+          zIndex: "9999",
+        });
+        document.body.appendChild(videoElement);
+      })
+      .catch(() => {
+        alert("Unable to access camera. Please check your browser settings.");
+      });
+  };
+});
