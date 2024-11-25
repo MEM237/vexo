@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "firebase": "^11.0.2",
+    "shepherd.js": "^14.3.0"
+  }
+}
