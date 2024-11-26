@@ -1,0 +1,121 @@
+/* General Styling */
+body {
+  margin: 0;
+  padding: 0;
+  width: 400px;
+  height: 250px;
+  background-color: #1a1a1a;
+  font-family: "Roboto", sans-serif;
+}
+
+/* Header Styling */
+.header {
+  position: relative;
+  width: 100%;
+  background-color: #1e1e1e;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 18px;
+  border-bottom: 2px solid #444;
+  z-index: 10;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Placeholder Styling */
+.placeholder {
+  width: 100%;
+  height: 100%;
+  background: url('../html/placeholder0.jpg') no-repeat center center;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/* Local Video Feed Styling */
+.local-video {
+  object-fit: cover;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 96px;
+  height: 60px;
+  z-index: 9999;
+}
+
+/* Button Container Styling */
+.button-container {
+  position: absolute;
+  bottom: 15px;
+  right: 10px;
+  z-index: 2;
+  display: flex;
+  gap: 10px; /* Adds space between buttons */
+  align-items: center; /* Ensures vertical alignment */
+  justify-content: flex-end; /* Aligns buttons to the right */
+}
+
+/* Base Button Styling */
+.button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: inline-block;
+  transition: transform 0.2s ease-in-out;
+}
+
+/* About Button */
+#about-button {
+  background-image: url('../assets/icons-vexo/Icon-cake-cover.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#about-button:hover {
+  background-image: url('../assets/icons-vexo/roll-cake-cover.png');
+  transform: scale(1.1);
+}
+
+/* Enable Camera Button */
+#enable-cam-button {
+  background-image: url('../assets/icons-vexo/Icon-camera-alt.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#enable-cam-button:hover {
+  background-image: url('../assets/icons-vexo/roll-camera-alt.png');
+  transform: scale(1.1);
+}
+
+/* Menu */
+#menu {
+  display: none; /* Initially hidden */
+  flex-direction: row;
+  gap: 10px;
+  background: rgba(26, 32, 45, 0.9);
+  padding: 10px;
+  border-radius: 6px;
+}
+
+#menu img {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+#menu img:hover {
+  transform: scale(1.2);
+  transition: transform 0.2s ease-in-out;
+}
+

@@ -1,0 +1,108 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: url('./placeholder0.jpg') no-repeat center center;
+    background-size: cover;
+    color: #ffffff;
+    width: 400px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* Main Container */
+.container {
+    display: grid;
+    grid-template-columns: 100px 1fr 400px; /* Fixed widths for menu and chat, flexible video section */
+    width: 100vw;
+    height: 100vh;
+    background-color: #1e1e1e;
+}
+
+/* Menu Section */
+.menu-section {
+    background-color: #333333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.menu-icon {
+    cursor: pointer;
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+}
+
+.menu-icon:hover + .menu,
+.menu:hover {
+    display: flex; /* Show menu on hover */
+}
+
+.menu a {
+    padding: 10px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    background-color: #555555;
+}
+
+/* Button Styles */
+.button {
+    cursor: pointer;
+    width: 75px;
+    height: 36px;
+    padding: 0px 8px;
+    border: 1px solid #2d362d;
+    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: #ff9500;
+    color: #007aff;
+    font-size: 14px;
+    font-family: "Roboto", sans-serif;
+    line-height: 24px;
+    outline: none;
+    position: absolute;
+}
+
+#about-button {
+    left: -685px; /* Position for 'About' button */
+    top: 1260px;
+}
+
+#enable-cam-button {
+    left: -579px; /* Position for 'Enable Cam' button */
+    top: 1260px;
+}
+
+/* Other existing styles continue */
+
+/* Responsive adjustments */
+@media (max-width: 1000px) {
+    .video-window,
+    .tabs {
+        width: 100%;
+    }
+    .chat-section {
+        width: 100%;
+    }
+}
